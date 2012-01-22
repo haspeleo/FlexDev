@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   minWidth="955" minHeight="600">
+	
+	
+	<!-- Scripts ======================================================================================= -->
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import valueObjects.Employee;
+			
+			//variables declarations 
+			[Bindable]
+			private var employees:ArrayCollection = new ArrayCollection();
+			
+			protected function employeeService_resultHandler(event:ResultEvent):void {
+				
+				var employeeData:ArrayCollection = event.result as ArrayCollection;
+				var employee:Employee;
+				for each ( var emp:Object in employeeData) {
+					
+					employee = new Employee(); 
+					employee.firstName = emp.firstname;
+					employee.lastName = emp.lastname;
+					
+					employees.addItem(employee);	
+				}
+				// TODO Auto-generated method stub
+			}
+			
+			protected function employeeService_faultHandler(event:FaultEvent):void {
+				
+				Alert.show(event.fault.faultString,"Fault Information");
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<!-- Declarations ======================================================================================= -->
+	
+	<fx:Declarations>
+		
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:HTTPService id="employeeService"
+					   url="http://www.lri.fr/~doghmen/Apps/employees.xml"
+					   result="employeeService_resultHandler(event)"
+					   fault="employeeService_faultHandler(event)">
+		</s:HTTPService>
+		
+	</fx:Declarations>
+	
+	
+	
+	<!-- UI components ======================================================================================= -->
+	<s:Label x="19" y="10" color="#D41515" fontSize="18" text="VENO Corporation directory"/>
+	<s:Button id="empBtn" x="19" y="35" label="Employees"/>
+	<s:Button id="deptBtn" x="137" y="35" label="Departements"/>
+	<s:DataGrid id="empDg" 
+				x="19" y="64" 
+				requestedRowCount="4">
+		<s:columns>
+			<s:ArrayList>
+				<s:GridColumn dataField="dataField1" headerText="Column 1"></s:GridColumn>
+				<s:GridColumn dataField="dataField2" headerText="Column 2"></s:GridColumn>
+				<s:GridColumn dataField="dataField3" headerText="Column 3"></s:GridColumn>
+			</s:ArrayList>
+		</s:columns>
+		<s:typicalItem>
+			<fx:Object dataField1="Sample Data" dataField2="Sample Data" dataField3="Sample Data"></fx:Object>
+		</s:typicalItem>
+		<s:ArrayList>
+			<fx:Object dataField1="data1" dataField2="data1" dataField3="data1"></fx:Object>
+			<fx:Object dataField1="data2" dataField2="data2" dataField3="data2"></fx:Object>
+			<fx:Object dataField1="data3" dataField2="data3" dataField3="data3"></fx:Object>
+			<fx:Object dataField1="data4" dataField2="data4" dataField3="data4"></fx:Object>
+		</s:ArrayList>
+	</s:DataGrid>
+	<!-- ===================================================================================================== -->
+	
+</s:Application>

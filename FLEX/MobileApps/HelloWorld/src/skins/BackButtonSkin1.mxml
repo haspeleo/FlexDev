@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--- Default button skin for s:Button in the Hello World app
+
+       @see spark.components.Button
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:SparkButtonSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+             xmlns:s="library://ns.adobe.com/flex/spark" 
+             xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+             minWidth="212" minHeight="68" 
+             alpha.disabled="0.5">
+     
+    <fx:Metadata>
+        <![CDATA[ 
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
+        [HostComponent("spark.components.Button")]
+        ]]>
+    </fx:Metadata>
+        
+    <!-- states -->
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+    
+	<s:Path top="0" right="0" bottom="0" left="0" data="M0 32.5 24.5703 59.8301C27.5239 63.0859 33.5342 66 37.9253 66L200.517 66C204.908 66 209 61.9004 209 57.5L209 7.5C209 3.1001 204.908 0 200.517 0L37.9253 0C33.5342 0 27.5239 2.41357 24.5703 5.66943L0 32.5Z">
+		<s:fill>
+			<s:LinearGradient x="105.125" y="66" scaleX="66" rotation="270">
+				<s:GradientEntry ratio="0" color="#333333"/>
+				<s:GradientEntry ratio="1" color="#4D4D4D"/>
+			</s:LinearGradient>
+		</s:fill>
+		<s:stroke>
+			<s:SolidColorStroke weight="2" caps="none" joints="miter" miterLimit="10" color="#FFFFFF"/>
+		</s:stroke>
+		<s:filters>
+			<s:DropShadowFilter distance="1" angle="90" blurX="6" blurY="6" alpha="0.75"/>
+		</s:filters>
+	</s:Path>
+    
+    <!-- layer 8: text -->
+    <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
+    <s:Label id="labelDisplay"
+             textAlign="center"
+             maxDisplayedLines="1"
+             verticalCenter="1" verticalAlign="middle" left="40" right="0"
+			 fontSize="24" fontWeight="bold" color="#FFFFFF">
+		<s:filters>
+			<s:DropShadowFilter distance="2" angle="90" blurX="3" blurY="3" alpha="0.75"/>
+		</s:filters>
+    </s:Label>
+    
+</s:SparkButtonSkin>

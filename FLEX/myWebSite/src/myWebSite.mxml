@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   minWidth="955" minHeight="600" 
+			   currentState="homePage">
+	
+	<fx:Style source="Styles.css"/>
+	
+	<fx:Script>
+		<![CDATA[
+			protected function downloadPdf_clickHandler(event:MouseEvent):void {
+				
+				var url:String = "http://www.lri.fr/~doghmen/CV/CV_Hassen_Doghmen_ExpertEngineer.pdf"; 
+				var request:URLRequest = new URLRequest(url);
+				var fileRef:FileReference = new FileReference();
+				fileRef.download(request);
+				
+			}
+		]]>
+	</fx:Script>
+	
+	
+	<s:states>
+		<s:State name="homePage"/>
+		<s:State name="publications"/>
+	</s:states>
+	
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+<!-- UI components ======================================================================    -->	
+	
+	<s:Form height.homePage="424">
+		<s:Label width="360" height="25" text="Hassen Doghmen - R&amp;D Engineering"
+				 styleName.homePage="titleHeader"
+				 x.publications="37" y.publications="10" fontSize.publications="14"
+				 fontWeight.publications="bold" verticalAlign.publications="middle"/>
+		
+		
+		<s:BorderContainer includeIn="publications" width="442" height="41">
+			<s:Button x="30" y="10" label="Home" click="currentState='homePage'"/>
+		</s:BorderContainer>
+		
+		<s:BorderContainer includeIn="homePage" width="442" height="37">
+			<s:Button includeIn="homePage" x="30" y="3" label="Home"
+					  click="currentState='publications'"/>
+			<s:Button x="138" y="3" label="Publications" click="currentState='publications'"/>
+		</s:BorderContainer>
+	
+		<s:Panel includeIn="homePage" width="584" height="250">
+		<s:Label x="37" y="-19" fontWeight="bold" text="Home Page"/>
+	</s:Panel>
+	
+	
+	<mx:Accordion includeIn="publications" 
+				  x="37" y="106" width="750" height="386" textAlign="left"
+				  horizontalGap="12">
+		
+		<s:NavigatorContent width="100%" height="100%" label="Continuous Rapid Action Value Estimates, Adrien Couëtoux and Mario Milone and Matthias Brendel and Hassen Doghmen and Michele Sebag and Olivier Teytaud , ACML, 2011">
+			<s:RichText x="6" y="10" width="476" height="134" text="In the last decade, Monte-Carlo Tree Search (MCTS) has revolutionized the domain of large-scale Markov Decision Process problems. MCTS most often uses the Upper Confidence Tree algorithm to handle the exploration versus exploitation trade-of, while a few heuristics are used to guide the exploration in large search spaces. Among these heuristics is Rapid Action Value Estimate (RAVE). This paper is concerned with extending the RAVE heuristics to continuous action and state spaces. The approach is experimentally validated on two artificial benchmark problems: the treasure hunt game, and a real-world energy management problem. "/>
+			<s:Button x="10" y="139" label="Download pdf"
+					  click="downloadPdf_clickHandler(event)"/>
+		</s:NavigatorContent>
+		
+		<s:NavigatorContent width="100%" height="100%"
+							label="Adding Double Progressive Widening to Upper Confidence Tree to Cope with Uncertainty in Planning Problems, Hassen Doghmen and Adrien Couëtoux, EWRL, 2011">
+			<s:RichText x="6" y="10" width="476" height="174" text="Current state of the art methods in energy policy planning only approximate the problem (Linear Programming on a finite sample of scenarios, Dynamic Programming on an approximation of the problem, etc). Monte-Carlo Tree Search (MCTS) seems to be a potential candidate to converge to an exact solution of these problems. But how fast, and how do key parameters (double/simple progressive widening) influence the rate of convergence (or even the convergence itself), are still open questions. Also, MCTS completely ignores the features of the problem, including the scale of the objective function. In this paper, we present MCTS, and its extension to continuous/stochastic domains. We show that on problems with continuous action spaces and infinite support of random variables, the ``vanilla'' version of MCTS fails. We also show how the double progressive widening technique success relies on its widening coefficient. We also study the impact of an unknown variance of the random variables, to see if it affects the optimal choice of the widening coefficients."/>
+		</s:NavigatorContent>
+		
+		<s:NavigatorContent width="100%" height="100%"
+							label="Consistency Modifications for Automatically Tuned Monte-Carlo Tree Search, Vincent Berthier, Hassen Doghmen and Olivier Teytaud, LION, 2010">
+			<s:RichText x="6" y="10" width="476" height="198" 
+						text="Monte-Carlo Tree Search algorithms (MCTS), including upper confidence trees (UCT), are known for their impressive ability in high dimensional control problems. Whilst the main testbed is the game of Go, there are increasingly many applications; these algorithms are now widely accepted as strong candidates for high- dimensional control applications. Unfortunately, it is known that for optimal performance on a given problem, MCTS requires some tuning; this tuning is often handcrafted or automated, with in some cases a loss of consistency, i.e. a bad behavior asymptotically in the computational power. This highly undesirable property led to a stupid behavior of our main MCTS program MoGo in a real-world situation described in section 3. This is a big trouble for our several works on automatic parameter tuning and the genetic programming of new features in MoGo. We will see in this paper: (i) A theoretical analysis of MCTS consistency, (ii) Detailed examples of consistent and inconsistent known algorithms, (iii) How to modify a MCTS implementation in order to ensure consistency, independently of the modifications to the scoring module (the module which is automatically tuned and genetically programmed in MoGo). As a by product of this work, we'll see the interesting property that some heavily tuned MCTS implementations are better than UCT in the sense that they do not visit the complete tree (whereas UCT asymptotically does), whilst preserving the consistency at least if consistency modifications above have been made."/>
+		</s:NavigatorContent>
+		
+		<s:NavigatorContent width="100%" height="100%"
+							label="Scalability and Parallelization of Monte-Carlo Tree Search, Amine Bourki, Guillaume Chaslot, Matthieu Coulm, Vincent Danjean, Hassen Doghmen, Thomas Herault, Jean-Baptiste Hoock, Arpad Rimmel, Fabien Teytaud, Olivier Teytaud, Paul Vayssiere, Ziqin Yu">
+			<s:RichText x="6" y="10" width="476" height="198"
+				text="Monte-Carlo Tree Search is now a well established algorithm,&#xd;in games and beyond. We analyze its scalability, and in particular its limitations, and the implications in terms of parallelization, in particular for&#xd;our program MoGo but also for our Havannah program Shakti. In particular, we get a good eﬃciency for the parallel versions, both for multicore&#xd;machines and for message-passing machines, but in spite of promising&#xd;results in self-play there are situations for which increasing the time per&#xd;move does not solve anything, and therefore parallelization is not the solution either. Nonetheless, for problems on which the Monte-Carlo part&#xd;is less biased than in Go, parallelization should be very eﬃcient even&#xd;without shared memory"/>
+		</s:NavigatorContent>
+		
+		<s:NavigatorContent width="100%" height="100%"
+							label="Computational and Human Intelligence in Blind Go, H.Doghmen, F.Teytaud, O.Teytaud, S. J. Yen, C. S. Lee, M. H. Wang, IEEE CIG 2011">
+			<s:RichText x="6" y="10" width="476" height="198" 
+						text="In this paper, we will consider questions related to blind-folded play: (i) the impact (for human players) of playing blindfolded in the level of Go players in 9x9 Go (ii) the influence of the visual support (the visual support is a board with no stone) (iii) which modifications are required for making a program strong in the blind variant of the game (and, somehow surprisingly, implementing a program for playing blind go is not equivalent to implementing a program for playing go) (iv) some conclusions on the rules of blind Go for making it interesting and pedagogically energycient."/>
+		</s:NavigatorContent>
+		
+	</mx:Accordion>
+	
+	
+	</s:Form>
+	
+	
+	
+	
+	
+	
+	
+</s:Application>

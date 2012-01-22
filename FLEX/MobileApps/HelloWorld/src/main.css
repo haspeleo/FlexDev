@@ -1,0 +1,12 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+
+s|Button.next {
+	skinClass: ClassReference("skins.NextButtonSkin2");
+	/* skinClass: ClassReference("skins.NextButtonSkin1"); */
+}
+
+s|Button.back {
+	skinClass: ClassReference("skins.BackButtonSkin2");
+	/* skinClass: ClassReference("skins.BackButtonSkin2"); */
+}

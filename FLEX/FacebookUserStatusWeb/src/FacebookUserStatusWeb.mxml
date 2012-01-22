@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   minWidth="400" minHeight="500" creationComplete="init()" currentState="loggedin">
+	
+	
+	<!-- Scripts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
+	
+	<fx:Script source="scripts/Login.as"/>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			import com.facebook.graph.Facebook;
+			
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			
+			protected function logout():void {
+				
+				Facebook.logout(logoutHandler);
+				currentState = "loggedin";
+			}
+			
+			private function loginHandler(session:Object, fail:Object):void {
+				
+				if (session) {
+					
+					currentState = "loggedout"; 
+					Facebook.api("/me", getHandler);
+					userImage.source = Facebook.getImageUrl(session.uid, 'large');
+					Facebook.api("me/statuses", getStatusHandler);
+				}
+				
+				if (fail) {
+					Alert.show("Logout from session");
+					currentState = "loggedin";
+				} 
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<!--<fx:Script source="scripts/Logout.as"/>-->
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
+	<s:states>
+		<s:State name="loggedout"/>
+		<s:State name="loggedin"/>
+	</s:states>
+	
+	<!-- Declarations ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<!-- UI components ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
+	
+	<s:Button id="loginButton" 
+			  excludeFrom="loggedout" 
+			  label="Login To Facebook" click="login()"
+			  horizontalCenter="0" skinClass="skins.FBLoginButtonSkin" verticalCenter="0"/>
+	
+	
+	<s:Form includeIn="loggedout" 
+			left="10" top="10" width="427" height="454">
+		
+		<s:Image id="userImage" 
+				 width="155" height="131"/>
+		
+		<s:FormItem width="270" label="User">
+			<s:Label id="userName" width="170"/>
+		</s:FormItem>
+		<s:FormItem width="270" label="Birthday">
+			<s:Label id="birthday" width="170"/>
+		</s:FormItem>
+		<s:FormItem label="Status">
+			<s:Label id="statusLabel"/>
+		</s:FormItem>
+		
+		<s:FormItem label="Post Status">
+			
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+			
+			<s:TextInput id="statusInput" />
+			<s:Button label="Submit"
+					  click="submitPost()"/>
+			
+		</s:FormItem>
+		
+		
+	</s:Form>
+	
+	
+	
+	
+	<s:Button includeIn="loggedout" 
+			  right="17" top="10" label="Logout from Facebook" 
+			  click="logout()"
+			  skinClass="skins.FBLogoutButtonSkin"/>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</s:Application>

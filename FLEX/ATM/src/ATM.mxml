@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   currentState="start">
+	
+	<fx:Script>
+		<![CDATA[
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				
+				currentState = "start"; 
+			}
+			
+			protected function button2_clickHandler(event:MouseEvent):void
+			{
+				currentState = "idle";
+				
+			}
+			
+			protected function button3_clickHandler(event:MouseEvent):void
+			{
+				currentState = "session"; 
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="start"/>
+		<s:State name="idle"/>
+		<s:State name="session"/>
+	</s:states>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Panel width="250" height="200" title="BNP Paribas"
+			 x.idle="10" y.idle="10"
+			 x.session="10" y.session="10"
+			 x.start="10" y.start="10">
+		<s:Label x="55" y="35" width="129" height="83" text="Welcome"
+				 height.idle="28" text.idle="Please insert card "
+				 height.session="28" text.session="Hello Mr "/>
+	</s:Panel>
+	<s:Button label="Power On the machine" skinClass="skins.CardSkin"
+			  x.idle="70" y.idle="218" label.idle="Card inseted"
+			  click.idle="button3_clickHandler(event)"
+			  x.session="75" y.session="218" label.session="Finish"
+			  click.session="button1_clickHandler(event)"
+			  left.start="39" top.start="218" click.start="button2_clickHandler(event)"/>
+</s:WindowedApplication>

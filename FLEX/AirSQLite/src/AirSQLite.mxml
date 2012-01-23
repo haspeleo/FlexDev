@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   creationComplete="start()" width="800" height="600" viewSourceURL="srcview/index.html">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script source="sqlite/SQLiteCode.as"/>
+	
+	<s:Label x="10" y="20" text="First name:"/>
+	<s:Button x="394" y="10" label="Add" click="addItem()"/>
+	<s:Label x="202" y="20" text="Last name:"/>
+	<s:Button label="Remove selected" y="10" x="472" click="remove()" enabled="{dg.selectedIndex != -1}"/>
+	<s:TextInput x="77" y="10" width="117" id="first_name"/>
+	<s:TextInput x="268" y="10" width="117" id="last_name"/>
+	<mx:DataGrid id="dg" left="10" right="10" top="40" bottom="10" dataProvider="{dp}">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Index:" dataField="id"/>
+			<mx:DataGridColumn headerText="First name" dataField="first_name"/>
+			<mx:DataGridColumn headerText="Last name" dataField="last_name"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+</s:WindowedApplication>
+

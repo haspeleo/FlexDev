@@ -7,6 +7,10 @@
 			   minWidth="955" minHeight="700" 
 			   currentState="Employees">
 	
+	
+	
+<!--Action Script code =====================================================================================-->	
+	<fx:Style source="assets/FlexWebTestDrive.css"/>
 <!--Action Script code =====================================================================================-->	
 	<fx:Script>
 		<![CDATA[
@@ -65,7 +69,7 @@
 			
 			protected function toogleBtn_clickHandler(event:MouseEvent):void {
 					
-				/* if(toogleBtn.selected) {
+				 if(toogleBtn.selected) {
 					
 					deptDg.setStyle("fontSize", 14);	
 					toogleBtn.label = "Smaller text";
@@ -74,7 +78,7 @@
 					
 					deptDg.setStyle("fontSize", 12);
 					toogleBtn.label = "Bigger Text";
-				} */
+				} 
 				
 			}
 			
@@ -148,8 +152,10 @@
 					case Alert.YES:
 						deleteEmployeeResult.token = employeeService.deleteEmployee(employee.id);
 						Alert.show("employee deleted"); 
+						currentState = "Employees"; 
 						break;
 					case Alert.NO:
+						currentState = "Employees"; 
 						//Alert.show("back to menu"); 
 						break;
 				}
@@ -199,26 +205,23 @@
 	
 <!--UI components=======================================================================================-->	
 	
-	<s:Label x="10" y="10" color="#BC0D0D" fontSize="20" fontWeight="bold"
+	<s:Label id="companyLabel" x="10" y="10" 
 			 text="VENO incorporation directory"
-			 color.Departments="#110DBC"/>
+			 color.Departments="#110DBC"
+			 />
 	
-	<s:Button id="empBtn" x="10" y="37" label="Employees" click="empBtn_clickHandler(event)"
-			  enabled.EmployeeAdd="false"
-			  enabled.EmployeeDelete="false"
-			  enabled.EmployeeDetails="false"
-			  enabled.Employees="false"
-			  enabled.EmployeeUpdate="false"/>
+	<s:Button id="empBtn" x="10" y="65" label="Employees" click="empBtn_clickHandler(event)"
+			  enabled="false"
+			  enabled.Departments="true"
+			  enabled.EmployeeDelete="true"/>
 	
-	<s:Button id="deptBn" x="98" y="37" label="Departments"
-			  enabled.Departments="false"
-			  click ="deptBn_clickHandler(event)"/>
+	<s:Button id="deptBn" x="110" y="65" label="Departments" click="deptBn_clickHandler(event)"
+			  enabled.Departments="false"/>
 	
-	<s:DataGrid id="empDg" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="10" y="66" width="650"
-				creationComplete="empDg_creationCompleteHandler(event)" requestedRowCount="4"
-				selectionChange="empDg_selectionChangeHandler(event)"
-				editable="true"
-				gridItemEditorSessionSave="empDg_gridItemEditorSessionSaveHandler(event)">
+	<s:DataGrid id="empDg" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="10" y="94" width="650"
+				creationComplete="empDg_creationCompleteHandler(event)" editable="true"
+				gridItemEditorSessionSave="empDg_gridItemEditorSessionSaveHandler(event)"
+				requestedRowCount="4" selectionChange="empDg_selectionChangeHandler(event)">
 		
 		<s:columns>
 			<s:ArrayList>
@@ -239,7 +242,7 @@
 		</s:typicalItem>
 		<s:AsyncListView list="{getEmployeesResult.lastResult}"/>
 	</s:DataGrid>
-	<s:DataGrid id="deptDg" includeIn="Departments" x="10" y="66" width="647"
+	<s:DataGrid id="deptDg" includeIn="Departments" x="10" y="96" width="647"
 				creationComplete="deptDg_creationCompleteHandler(event)" requestedRowCount="4">
 		<s:columns>
 			<s:ArrayList>
@@ -304,31 +307,19 @@
 			<s:Label id="photofileLabel" text="{employee.photofile}"/>
 		</s:FormItem>
 	</s:Form>
-	<s:Button id="searchBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="590" y="37" 
-			  label="search"
-			  click="searchBtn_clickHandler(event)"/>
+	<s:Button id="searchBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="629" y="60" width="29" height="30"
+			  label="search" click="searchBtn_clickHandler(event)" styleName="searchButton"/>
 	
-	<s:TextInput id="searchTxt"
-				 includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees"
-				 x="454" y="36" enter="searchBtn_clickHandler(event)" prompt="Last Name"
-				 text.EmployeeAdd="enter last name"
-				 text.EmployeeDelete="enter last name"
-				 text.EmployeeDetails="enter last name"
-				 text.EmployeeUpdate="enter last name"/>
+	<s:TextInput id="searchTxt" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="483" y="60" height="30"
+				 enter="searchBtn_clickHandler(event)" prompt="Last Name" styleName="searchInput"/>
 	
-	<s:Button id="toogleBtn" includeIn="Departments" x="557" y="37" width="100"
-			  label="Bigger Text"/>
+	<s:Button id="addBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="590" y="245" label="Add"
+			  click="addBtn_clickHandler(event)" styleName="actionButton"/>
 	
-	<s:Button id="addBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" 
-			  x="590" y="217" label="Add"
-			  click="addBtn_clickHandler(event)"/>
+	<s:Button id="deleteBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="483" y="245" label="Delete"
+			  click="deleteBtn_clickHandler(event)"/>
 	
-	<s:Button id="deleteBtn"
-			  includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees"
-			  x="483" y="217" label="Delete" click="deleteBtn_clickHandler(event)"/>
-	
-	<s:Button id="updateBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" 
-			  x="376" y="217" label="Update"
+	<s:Button id="updateBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="376" y="245" label="Update"
 			  click="updateBtn_clickHandler(event)"/>
 	
 	<s:Form includeIn="EmployeeAdd,EmployeeUpdate" x="10" y="292" defaultButton="{button}">
@@ -379,6 +370,9 @@
 	
 	<s:Form>
 	</s:Form>
+	<s:ToggleButton id="toogleBtn" includeIn="Departments" x="561" y="67" width="95"
+					label="Bigger Text" click="toogleBtn_clickHandler(event)"
+					styleName="actionButton"/>
 	
 	
 </s:Application>

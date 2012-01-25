@@ -1,0 +1,41 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+global {
+	font-family: Georgia;
+	font-size: 13; 
+	chrome-color: #5D5959;
+	symbolColor:white; 
+}
+s|Application {
+	backgroundColor:#EFEFEF;
+}
+	
+s|Button,s|ToogleButton {
+	color: #FFFFFF;
+	cornerRadius: 3;
+	fontWeight: bold;
+}
+
+s|Button:disabled {
+	color:#000000;
+}
+.actionButton {
+	chromeColor: #19408E;
+}
+#companyLabel {
+	color: #BC0D0D;
+   	fontSize: 24;  
+	fontWeight: bold; 
+}
+s|TextInput.searchInput
+{
+	skinClass: ClassReference("skins.SearchInputSkin");
+}
+s|Button.searchButton
+{
+	skinClass: ClassReference("skins.SearchButtonSkin");
+}
+	

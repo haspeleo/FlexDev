@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" 
+		xmlns:assets="assets.*"
+		minHeight="30"
+		minWidth="30">
+	
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("spark.components.Button")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="disabled" />
+		<s:State name="down" />
+		<s:State name="over" />
+		<s:State name="up" />
+	</s:states>
+	
+	
+	<!-- UI components skins -->
+	
+	
+	<s:Rect top="0" bottom="0" right="0" left="0" 
+			topRightRadiusX="3" topRightRadiusY="3"
+			bottomRightRadiusX="3" bottomRightRadiusY="3">
+	
+		<s:stroke>
+			<s:SolidColorStroke color="#1A1A1A" weight="1"/>
+		</s:stroke>
+		
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#999999" color.up="#666666"/>
+				<s:GradientEntry color="#4D4D4D" color.down="#333333"/>
+			</s:LinearGradient>
+		</s:fill>
+		
+	</s:Rect>
+	
+	<assets:search_icon horizontalCenter="0" verticalCenter="0"/>
+	
+	<!-- SkinParts
+	name=iconDisplay, type=spark.primitives.BitmapImage, required=false
+	name=labelDisplay, type=spark.core.IDisplayText, required=false
+	-->
+</s:Skin>

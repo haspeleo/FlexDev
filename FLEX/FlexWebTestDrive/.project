@@ -28,6 +28,11 @@
 			<location>/Applications/XAMPP/xamppfiles/htdocs/TestDrive/public/bin-debug</location>
 		</link>
 		<link>
+			<name>bin-release</name>
+			<type>2</type>
+			<location>/Applications/XAMPP/xamppfiles/htdocs/FlexWebTestDrive</location>
+		</link>
+		<link>
 			<name>services/EmployeeService.php</name>
 			<type>1</type>
 			<location>/Applications/XAMPP/xamppfiles/htdocs/TestDrive/services/EmployeeService.php</location>

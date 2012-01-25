@@ -12,10 +12,12 @@
 		<![CDATA[
 			import mx.controls.Alert;
 			import mx.events.FlexEvent;
+			import mx.events.CloseEvent; 
 			import mx.rpc.events.ResultEvent;
 			
 			import spark.events.GridItemEditorEvent;
 			import spark.events.GridSelectionEvent;
+			
 			
 			protected function empDg_creationCompleteHandler(event:FlexEvent):void {
 				
@@ -132,13 +134,31 @@
 			
 			protected function empDg_gridItemEditorSessionSaveHandler(event:GridItemEditorEvent):void
 			{
+				//trace(employee.firstname); 
+				//trace(employee); 
+				//trace((empDg.dataProvider as AsyncListView).list); 
+				
 				updateEmployeeResult.token = employeeService.updateEmployee(employee);
 			}
 			
+			private function alertClickHandler(event:CloseEvent):void{
+				
+				switch (event.detail) {
+					
+					case Alert.YES:
+						deleteEmployeeResult.token = employeeService.deleteEmployee(employee.id);
+						Alert.show("employee deleted"); 
+						break;
+					case Alert.NO:
+						//Alert.show("back to menu"); 
+						break;
+				}
+			}
 			
 			protected function deleteBtn_clickHandler(event:MouseEvent):void
 			{
-				deleteEmployeeResult.token = employeeService.deleteEmployee(employee.id);
+				Alert.show("Are you sure, you to delete", "Security control", 
+					Alert.YES | Alert.NO, this, alertClickHandler);
 			}
 			
 			protected function deleteEmployeeResult_resultHandler(event:ResultEvent):void

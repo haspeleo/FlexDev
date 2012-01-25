@@ -1,0 +1,185 @@
+
+<model xmlns="http://ns.adobe.com/Fiber/1.0">
+  <annotation name="ActionScriptGeneration">
+    <item name="FullyQualifyReferences">true</item>
+  </annotation>
+  <service name="EmployeeService">
+    <annotation name="ActionScriptGeneration">
+      <item name="Destination">EmployeeService</item>
+      <item name="Endpoint">http://localhost/TestDrive/public/gateway.php</item>
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">services.employeeservice</item>
+      <item name="Source">EmployeeService</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">com.zend.php.flashbuilder.php</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="PHP_RELATIVE_LOCATION">TestDrive/services/EmployeeService.php</item>
+      <item name="PHP_CLASS_NAME">EmployeeService</item>
+      <item name="LINKED_FILE">EmployeeService.php</item>
+      <item name="PHP_SERVER_ROOT">/Applications/XAMPP/xamppfiles/htdocs</item>
+      <item name="PHP_WORKSPACE_LOCATION">/TestDrive/services/EmployeeService.php</item>
+      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
+      <item name="PHP_LOCATION">/Applications/XAMPP/xamppfiles/htdocs/TestDrive/services/EmployeeService.php</item>
+      <item name="PHP_SERVER_ROOT_URL">http://localhost</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost/TestDrive/public/gateway.php</item>
+      <item name="PHP_SERVICES_FOLDER">/Applications/XAMPP/xamppfiles/htdocs/TestDrive/public/bin-debug/services</item>
+    </annotation>
+    <function name="getEmployees" return-type="Employee[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">photofile,title,officephone,street,id,lastname,departmentid,office,cellphone,firstname,email,state,city,zipcode</item>
+      </annotation>
+    </function>
+    <function name="getEmployeesSummary" return-type="opaque[]">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getDepartments" return-type="Department[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">esttravel,estcontractors,actualsalary,actualtravel,budget,estsalary,manager,id,businessunit,actualexpenses,costcenter,estsupplies,actualcontractors,actualsupplies,name</item>
+      </annotation>
+    </function>
+    <function name="getEmployeesByID" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="itemID" type="opaque"/>
+    </function>
+    <function name="getEmployeesByName" return-type="Employee[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">photofile,title,officephone,street,id,lastname,departmentid,office,cellphone,firstname,email,state,city,zipcode</item>
+      </annotation>
+      <parameter name="searchStr" type="opaque"/>
+    </function>
+    <function name="getEmployeesSummaryByName" return-type="opaque[]">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="searchStr" type="opaque"/>
+    </function>
+    <function name="createEmployee" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">Employee</item>
+        <item name="inputParamNames">item</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="item" type="Employee"/>
+    </function>
+    <function name="deleteEmployee" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="itemID" type="opaque"/>
+    </function>
+    <function name="updateEmployee" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="item" type="opaque"/>
+    </function>
+  </service>
+  <entity name="Employee">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Employee</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">EmployeeService,EmployeeServiceDummy</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="getEmployees">
+      <item name="propertySpecifier">photofile,title,officephone,street,id,lastname,departmentid,office,cellphone,firstname,email,state,city,zipcode</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <annotation name="getEmployeesByName">
+      <item name="propertySpecifier">photofile,title,officephone,street,id,lastname,departmentid,office,cellphone,firstname,email,state,city,zipcode</item>
+    </annotation>
+    <property name="photofile" type="string" required="true"/>
+    <property name="title" type="string" required="true"/>
+    <property name="officephone" type="string" required="true"/>
+    <property name="street" type="string" required="true"/>
+    <property name="id" type="integer" required="true"/>
+    <property name="lastname" type="string" required="true"/>
+    <property name="departmentid" type="integer" required="true"/>
+    <property name="office" type="string" required="true"/>
+    <property name="cellphone" type="string" required="true"/>
+    <property name="firstname" type="string" required="true"/>
+    <property name="email" type="string" required="true"/>
+    <property name="state" type="string" required="true"/>
+    <property name="city" type="string" required="true"/>
+    <property name="zipcode" type="string" required="true"/>
+  </entity>
+  <entity name="Department">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Department</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">EmployeeService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="getDepartments">
+      <item name="propertySpecifier">esttravel,estcontractors,actualsalary,actualtravel,budget,estsalary,manager,id,businessunit,actualexpenses,costcenter,estsupplies,actualcontractors,actualsupplies,name</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="esttravel" type="integer" required="true"/>
+    <property name="estcontractors" type="integer" required="true"/>
+    <property name="actualsalary" type="integer" required="true"/>
+    <property name="actualtravel" type="integer" required="true"/>
+    <property name="budget" type="integer" required="true"/>
+    <property name="estsalary" type="integer" required="true"/>
+    <property name="manager" type="string" required="true"/>
+    <property name="id" type="integer" required="true"/>
+    <property name="businessunit" type="string" required="true"/>
+    <property name="actualexpenses" type="integer" required="true"/>
+    <property name="costcenter" type="integer" required="true"/>
+    <property name="estsupplies" type="integer" required="true"/>
+    <property name="actualcontractors" type="integer" required="true"/>
+    <property name="actualsupplies" type="integer" required="true"/>
+    <property name="name" type="string" required="true"/>
+  </entity>
+</model>

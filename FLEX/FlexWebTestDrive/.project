@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>FlexWebTestDrive</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.flexbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.zend.php.flashbuilder.core.FlexPHPBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.adobe.flexbuilder.project.flexnature</nature>
+		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
+		<nature>com.zend.php.flashbuilder.core.FlexPHPNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>bin-debug</name>
+			<type>2</type>
+			<location>/Applications/XAMPP/xamppfiles/htdocs/TestDrive/public/bin-debug</location>
+		</link>
+		<link>
+			<name>services/EmployeeService.php</name>
+			<type>1</type>
+			<location>/Applications/XAMPP/xamppfiles/htdocs/TestDrive/services/EmployeeService.php</location>
+		</link>
+	</linkedResources>
+</projectDescription>

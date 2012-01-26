@@ -30,8 +30,8 @@ s|VScrollBar {
 	/*skinClass:ClassReference("skins.VScrollBarSkin");*/
 }
 .actionButton {
-	/*chromeColor: #19408E;*/
-	skinClass:ClassReference("skins.ActionButtonSkin");
+	chromeColor: #19408E;
+	/*skinClass:ClassReference("skins.ActionButtonSkin");*/
 	
 }
 #companyLabel {
@@ -48,3 +48,20 @@ s|Button.searchButton
 	skinClass: ClassReference("skins.SearchButtonSkin");
 }
 	
+mx|PieSeries {
+	fills: #6B96D0,#5B7FB2,#81A4D0,#7EC2EA,#6B84A5,#686BD0,#6A8AD0;
+}
+.grayFill {
+	fill:#5B7FB2;
+}
+mx|ColumnChart {
+	axisTitleStyleName: boldTitles; 	
+}
+.boldTitles {
+	fontWeight:bold; 
+}
+
+
+
+
+

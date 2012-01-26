@@ -14,9 +14,13 @@
 <!--Action Script code =====================================================================================-->	
 	<fx:Script>
 		<![CDATA[
+			import mx.charts.HitData;
+			import mx.charts.chartClasses.IAxis;
+			import mx.charts.events.ChartItemEvent;
+			import mx.charts.series.items.PieSeriesItem;
 			import mx.controls.Alert;
+			import mx.events.CloseEvent;
 			import mx.events.FlexEvent;
-			import mx.events.CloseEvent; 
 			import mx.rpc.events.ResultEvent;
 			
 			import spark.events.GridItemEditorEvent;
@@ -174,8 +178,41 @@
 				
 			}
 			
+			protected function chartBtn_clickHandler(event:MouseEvent):void
+			{
+				currentState = "DepartmentChart";
+			}
+			
+			protected function deptPieChart_itemClickHandler(event:ChartItemEvent):void
+			{
+				currentState = "DepartmentDetails";
+				deptColumnChart.dataProvider = createChartDataProvider(event.hitData.item); 
+				expenseAxis.title = event.hitData.item.name + "Expenses";
+				estSeries.setStyle("fill", (event.hitData.chartItem as PieSeriesItem).fill); 
+			}
+			
+			protected function createChartDataProvider(item:Object):Array 
+			{
+				var dp:Array=
+					[{field:'salaries',actual:item.actualsalary,est:item.estsalary},
+						{field:'travel',actual:item.actualtravel,est:item.esttravel},
+						{field:'supplies',actual:item.actualsupplies,est:item.estsupplies},
+						{field:'contractors',actual:item.actualcontractors,est:item.estcontractors}];
+				return dp;
+			}
+			
+			
+			protected function axisMoneyFormatter(labelValue:Object, previousValue:Object, axis:IAxis):String {
+				return moneyFormatter.format(labelValue); 
+			}
+			protected function formatDeptPieTips (hitData:HitData):String {
+				return "<b>"+hitData.item.name+"</b><br/>"+"Budget: "
+					+moneyFormatter.format(hitData.item.budget);
+			}
 		]]>
 	</fx:Script>
+	
+<!--States=============================================================================================-->	
 	<s:states>
 		<s:State name="Departments"/>
 		<s:State name="Employees"/>
@@ -183,6 +220,8 @@
 		<s:State name="EmployeeAdd"/>
 		<s:State name="EmployeeUpdate"/>
 		<s:State name="EmployeeDelete"/>
+		<s:State name="DepartmentChart"/>
+		<s:State name="DepartmentDetails"/>
 	</s:states>
 	
 <!--Declarations=======================================================================================-->	
@@ -200,13 +239,25 @@
 		<s:CallResponder id="createEmployeeResult" result="createEmployeeResult_resultHandler(event)"/>
 		<s:CallResponder id="updateEmployeeResult" result="updateEmployeeResult_resultHandler(event)"/>
 		<s:CallResponder id="deleteEmployeeResult" result="deleteEmployeeResult_resultHandler(event)"/>
+		<mx:SeriesInterpolate id="interpolate" duration="1000"/>
+		<s:SolidColorStroke id="dkGrayStrokeThick" color="#4D4D4D" weight="5"/>	
+		<s:SolidColorStroke id="dkGrayStrokeThin" color="#4D4D4D" weight="1"/>	
+		<s:CurrencyFormatter id="moneyFormatter" useCurrencySymbol="true" currencySymbol="$" fractionalDigits="0"/>
 	</fx:Declarations>
+	
+	
+<!--Binding=======================================================================================-->	
+	
 	<fx:Binding source="empDg.selectedItem as Employee" destination="employee"/>
 	
 <!--UI components=======================================================================================-->	
 	
 	<s:controlBarContent>
 		<s:Label id="companyLabel" text="VENO incorporation directory"
+				 x.DepartmentChart="10" y.DepartmentChart="10" color.DepartmentChart="#110DBC"
+				 text.DepartmentChart="VENO incorporation directory - Departments"
+				 x.DepartmentDetails="10" y.DepartmentDetails="10" color.DepartmentDetails="#110DBC"
+				 text.DepartmentDetails="VENO incorporation directory - Departments"
 				 x.Departments="10" y.Departments="10" color.Departments="#110DBC"
 				 text.Departments="VENO incorporation directory - Departments"
 				 x.EmployeeAdd="10" y.EmployeeAdd="10"
@@ -219,9 +270,13 @@
 	
 	<s:Button id="empBtn" x="10" y="30" label="Employees" click="empBtn_clickHandler(event)"
 			  enabled="false"
+			  enabled.DepartmentChart="true"
+			  enabled.DepartmentDetails="true"
 			  enabled.Departments="true"/>
 	
 	<s:Button id="deptBn" x="138" y="30" label="Departments" click="deptBn_clickHandler(event)"
+			  enabled.DepartmentChart="false"
+			  enabled.DepartmentDetails="false"
 			  enabled.Departments="false"/>
 	
 	<s:DataGrid id="empDg" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="10" y="67" width="650"
@@ -248,7 +303,7 @@
 		</s:typicalItem>
 		<s:AsyncListView list="{getEmployeesResult.lastResult}"/>
 	</s:DataGrid>
-	<s:DataGrid id="deptDg" includeIn="Departments" x="10" y="108" width="647"
+	<s:DataGrid id="deptDg" includeIn="DepartmentChart,DepartmentDetails,Departments" x="10" y="66" width="647"
 				creationComplete="deptDg_creationCompleteHandler(event)" requestedRowCount="4">
 		<s:columns>
 			<s:ArrayList>
@@ -381,9 +436,59 @@
 	
 	<s:Form>
 	</s:Form>
-	<s:ToggleButton id="toogleBtn" includeIn="Departments" x="561" y="70" width="95"
+	<s:ToggleButton id="toogleBtn" includeIn="DepartmentChart,DepartmentDetails,Departments" x="561" y="28" width="95"
 					label="Bigger Text" click="toogleBtn_clickHandler(event)"/>
-					<!--styleName="actionButton"/>-->
+	
+	<s:Button id="chartBtn" includeIn="DepartmentChart,DepartmentDetails,Departments" x="537" y="215"
+			  label="Chart Data" click="chartBtn_clickHandler(event)" styleName="actionButton"
+			  enabled.DepartmentChart="false"
+			  enabled.DepartmentDetails="false"/>
+	
+<!--Chart data====================================================================================-->	
+	<mx:PieChart id="deptPieChart" includeIn="DepartmentChart,DepartmentDetails" x="10" y="240"
+				 width="352" height="344" dataProvider="{deptDg.dataProvider}" showDataTips="true"
+				 itemClick ="deptPieChart_itemClickHandler(event)"
+				 dataTipFunction="formatDeptPieTips">
+		<mx:series>
+			<mx:PieSeries field="budget" nameField="name" labelPosition="inside"/>
+		</mx:series>
+	</mx:PieChart>
+	
+	
+	<mx:ColumnChart id="deptColumnChart" 
+					includeIn="DepartmentDetails" x="370" y="240" width="352"
+					height="344"
+					showDataTips="true">
+		<mx:series>
+			<mx:ColumnSeries id="estSeries" displayName="Estimated" yField="est" 
+							 showDataEffect="interpolate"/>
+			<mx:ColumnSeries displayName="Actual" yField="actual" 
+							 showDataEffect="interpolate" styleName="grayFill"/>
+		</mx:series>
+		
+		<mx:horizontalAxis>
+			<mx:CategoryAxis id="expenseAxis" title="Expenses" categoryField="field"/>
+		</mx:horizontalAxis>
+		
+		<mx:verticalAxis>
+			<mx:LinearAxis id="amountAxis" title="Amount" minimum="0" maximum="500000"
+						   labelFunction="axisMoneyFormatter"/>
+		</mx:verticalAxis>
+		
+		<mx:verticalAxisRenderers>
+			<mx:AxisRenderer verticalAxisTitleAlignment="vertical" axis="{amountAxis}"
+							 axisStroke="{dkGrayStrokeThick}"
+							 tickStroke="{dkGrayStrokeThin}"/>
+		</mx:verticalAxisRenderers>	
+		
+		<mx:horizontalAxisRenderers>
+			<mx:AxisRenderer verticalAxisTitleAlignment="vertical" axis="{expenseAxis}"
+							 axisStroke="{dkGrayStrokeThick}"
+							 tickStroke="{dkGrayStrokeThin}"/>
+		</mx:horizontalAxisRenderers>	
+		
+	</mx:ColumnChart>
+	<mx:Legend includeIn="DepartmentDetails" x="624" y="254" dataProvider="{deptColumnChart}"/>
 	
 	
 	

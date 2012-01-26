@@ -4,26 +4,35 @@
 
 
 global {
-	font-family: Georgia;
+	/*font-family: Georgia;*/
+	font-family: Verdana;
 	font-size: 13; 
 	chrome-color: #5D5959;
 	symbolColor:white; 
 }
 s|Application {
-	backgroundColor:#EFEFEF;
+	/*skinClass: ClassReference("skins.ApplicationSkin"); */
 }
 	
-s|Button,s|ToogleButton {
-	color: #FFFFFF;
-	cornerRadius: 3;
-	fontWeight: bold;
+s|Button {
+	skinClass: ClassReference("skins.ButtonSkin");
 }
 
-s|Button:disabled {
-	color:#000000;
+s|ToogleButton {
+	/*skinClass:ClassReference("skins.ToggleButtonSkin"); */
+}
+	
+s|DataGrid {
+	skinClass:ClassReference("skins.DataGridSkin"); 
+}
+
+s|VScrollBar {
+	/*skinClass:ClassReference("skins.VScrollBarSkin");*/
 }
 .actionButton {
-	chromeColor: #19408E;
+	/*chromeColor: #19408E;*/
+	skinClass:ClassReference("skins.ActionButtonSkin");
+	
 }
 #companyLabel {
 	color: #BC0D0D;

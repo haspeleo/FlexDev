@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The default skin class for the track of a Spark VScrollBar component.  
+
+       @see spark.components.VScrollBar
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009">
+
+    <fx:Metadata>
+        [HostComponent("spark.components.Button")]
+    </fx:Metadata> 
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="down" />
+        <s:State name="over" />
+        <s:State name="disabled" />
+    </s:states>
+
+    <!-- border/fill -->
+    <s:Rect top="0" bottom="0" left="0" right="0" minWidth="14" minHeight="14">
+        <s:stroke>
+            <s:SolidColorStroke color="0x1A1A1A" weight="1"/>
+        </s:stroke>
+        <s:fill>
+            <s:SolidColor color="0x444444" />
+        </s:fill>
+		<s:filters>
+			<s:DropShadowFilter inner="true" blurX="4" blurY="4" alpha="1" distance="2"/>
+		</s:filters>
+    </s:Rect>
+   
+</s:SparkSkin>

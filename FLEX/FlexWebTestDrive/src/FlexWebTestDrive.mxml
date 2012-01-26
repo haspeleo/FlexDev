@@ -205,20 +205,26 @@
 	
 <!--UI components=======================================================================================-->	
 	
-	<s:Label id="companyLabel" x="10" y="10" 
-			 text="VENO incorporation directory"
-			 color.Departments="#110DBC"
-			 />
+	<s:controlBarContent>
+		<s:Label id="companyLabel" text="VENO incorporation directory"
+				 x.Departments="10" y.Departments="10" color.Departments="#110DBC"
+				 text.Departments="VENO incorporation directory - Departments"
+				 x.EmployeeAdd="10" y.EmployeeAdd="10"
+				 x.EmployeeDelete="10" y.EmployeeDelete="10"
+				 x.EmployeeDetails="10" y.EmployeeDetails="10"
+				 text.Employees="VENO incorporation directory - Employees"
+				 x.EmployeeUpdate="10" y.EmployeeUpdate="10"/>
+	</s:controlBarContent>
 	
-	<s:Button id="empBtn" x="10" y="65" label="Employees" click="empBtn_clickHandler(event)"
+	
+	<s:Button id="empBtn" x="10" y="30" label="Employees" click="empBtn_clickHandler(event)"
 			  enabled="false"
-			  enabled.Departments="true"
-			  enabled.EmployeeDelete="true"/>
+			  enabled.Departments="true"/>
 	
-	<s:Button id="deptBn" x="110" y="65" label="Departments" click="deptBn_clickHandler(event)"
+	<s:Button id="deptBn" x="138" y="30" label="Departments" click="deptBn_clickHandler(event)"
 			  enabled.Departments="false"/>
 	
-	<s:DataGrid id="empDg" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="10" y="94" width="650"
+	<s:DataGrid id="empDg" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="10" y="67" width="650"
 				creationComplete="empDg_creationCompleteHandler(event)" editable="true"
 				gridItemEditorSessionSave="empDg_gridItemEditorSessionSaveHandler(event)"
 				requestedRowCount="4" selectionChange="empDg_selectionChangeHandler(event)">
@@ -242,7 +248,7 @@
 		</s:typicalItem>
 		<s:AsyncListView list="{getEmployeesResult.lastResult}"/>
 	</s:DataGrid>
-	<s:DataGrid id="deptDg" includeIn="Departments" x="10" y="96" width="647"
+	<s:DataGrid id="deptDg" includeIn="Departments" x="10" y="108" width="647"
 				creationComplete="deptDg_creationCompleteHandler(event)" requestedRowCount="4">
 		<s:columns>
 			<s:ArrayList>
@@ -264,7 +270,7 @@
 		</s:typicalItem>
 		<s:AsyncListView list="{getDepartmentsResult.lastResult}"/>
 	</s:DataGrid>
-	<s:Form includeIn="EmployeeDelete,EmployeeDetails" x="5" y="277">
+	<s:Form includeIn="EmployeeDetails" x="10" y="315">
 		<s:FormItem label="Lastname">
 			<s:Label id="lastnameLabel" text="{employee.lastname}"/>
 		</s:FormItem>
@@ -287,7 +293,7 @@
 			<s:Label id="emailLabel" text="{employee.email}"/>
 		</s:FormItem>
 	</s:Form>
-	<s:Form includeIn="EmployeeDelete,EmployeeDetails" x="330" y="277">
+	<s:Form includeIn="EmployeeDetails" x="330" y="315">
 		<s:FormItem label="Office">
 			<s:Label id="officeLabel" text="{employee.office}"/>
 		</s:FormItem>
@@ -307,22 +313,24 @@
 			<s:Label id="photofileLabel" text="{employee.photofile}"/>
 		</s:FormItem>
 	</s:Form>
-	<s:Button id="searchBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="629" y="60" width="29" height="30"
+	<s:Button id="searchBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="629" y="25" width="29" height="30"
 			  label="search" click="searchBtn_clickHandler(event)" styleName="searchButton"/>
 	
-	<s:TextInput id="searchTxt" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="483" y="60" height="30"
+	<s:TextInput id="searchTxt" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="483" y="25" height="30"
 				 enter="searchBtn_clickHandler(event)" prompt="Last Name" styleName="searchInput"/>
 	
-	<s:Button id="addBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="590" y="245" label="Add"
+	<s:Button id="addBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="539" y="226" label="Add"
 			  click="addBtn_clickHandler(event)" styleName="actionButton"/>
 	
-	<s:Button id="deleteBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="483" y="245" label="Delete"
+	<s:Button id="deleteBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="406" y="226" label="Delete"
 			  click="deleteBtn_clickHandler(event)"/>
 	
-	<s:Button id="updateBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="376" y="245" label="Update"
+	<s:Button id="updateBtn" includeIn="EmployeeAdd,EmployeeDelete,EmployeeDetails,EmployeeUpdate,Employees" x="276" y="226" label="Update"
 			  click="updateBtn_clickHandler(event)"/>
 	
-	<s:Form includeIn="EmployeeAdd,EmployeeUpdate" x="10" y="292" defaultButton="{button}">
+	<s:Form includeIn="EmployeeAdd,EmployeeUpdate" x="10" y="292" defaultButton="{button}"
+			x.EmployeeAdd="53" y.EmployeeAdd="257"
+			x.EmployeeUpdate="62" y.EmployeeUpdate="265">
 		<s:FormItem label="Lastname">
 			<s:TextInput id="lastnameTextInput" text="{employee.lastname}"/>
 		</s:FormItem>
@@ -345,7 +353,9 @@
 			<s:TextInput id="emailTextInput" text="{employee.email}"/>
 		</s:FormItem>
 	</s:Form>
-	<s:Form includeIn="EmployeeAdd,EmployeeUpdate" x="302" y="292">
+	<s:Form includeIn="EmployeeAdd,EmployeeUpdate" x="302" y="292"
+			x.EmployeeAdd="345" y.EmployeeAdd="257"
+			x.EmployeeUpdate="405" y.EmployeeUpdate="270">
 		<s:FormItem label="Office">
 			<s:TextInput id="officeTextInput" text="{employee.office}"/>
 		</s:FormItem>
@@ -365,14 +375,16 @@
 			<s:TextInput id="photofileTextInput" text="{employee.photofile}"/>
 		</s:FormItem>
 		<s:Button id="button" label="Add Employee" click="button_clickHandler(event)"
+				  styleName.EmployeeAdd="actionButton"
 				  label.EmployeeUpdate="Update Employee"/>
 	</s:Form>
 	
 	<s:Form>
 	</s:Form>
-	<s:ToggleButton id="toogleBtn" includeIn="Departments" x="561" y="67" width="95"
-					label="Bigger Text" click="toogleBtn_clickHandler(event)"
-					styleName="actionButton"/>
+	<s:ToggleButton id="toogleBtn" includeIn="Departments" x="561" y="70" width="95"
+					label="Bigger Text" click="toogleBtn_clickHandler(event)"/>
+					<!--styleName="actionButton"/>-->
+	
 	
 	
 </s:Application>

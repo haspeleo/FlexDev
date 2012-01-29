@@ -5,7 +5,7 @@
 
 global {
 	/*font-family: Georgia;*/
-	font-family: Verdana;
+	font-family: Times;
 	font-size: 13; 
 	chrome-color: #5D5959;
 	symbolColor:white; 
@@ -18,9 +18,10 @@ s|Button {
 	skinClass: ClassReference("skins.ButtonSkin");
 }
 
-s|ToogleButton {
-	/*skinClass:ClassReference("skins.ToggleButtonSkin"); */
+/*s|ToogleButton {
+	skinClass:ClassReference("skins.ToggleButtonSkin"); 
 }
+*/
 	
 s|DataGrid {
 	skinClass:ClassReference("skins.DataGridSkin"); 

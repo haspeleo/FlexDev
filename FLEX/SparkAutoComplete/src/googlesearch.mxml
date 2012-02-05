@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   xmlns:components="org.flashcommander.components.*" 
+			   viewSourceURL="/SparkAutoComplete/bin-release/srcview/index.html">
+
+	<fx:Declarations>
+		<s:HTTPService id="googleSuggest" result="onResult(event)"
+					   fault="onFault(event)"
+					   showBusyCursor="true"  
+					   resultFormat="e4x" />
+
+		<s:HTTPService id="googleSearch" result="onSearchResult(event)" 
+					   showBusyCursor="true"
+					   fault="onFault(event)"
+					   resultFormat="text" />
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			import com.adobe.serialization.json.JSON;
+			import mx.collections.ArrayList;
+			import mx.collections.XMLListCollection;
+			import mx.rpc.events.ResultEvent;
+			
+			private function onChange(){
+				var s = autoC.text;
+				//googleSuggest.url = "http://google.com/complete/search?output=toolbar&q=" + s;
+				googleSuggest.url = "../data/googlesuggest.php?q=" + s;
+				googleSuggest.send();
+			}
+			
+			private function onFault(event){
+				// handle errors here
+			}
+			
+			private function onResult(event:ResultEvent){
+				var xmlList:XMLList = googleSuggest.lastResult.CompleteSuggestion as XMLList
+				autoC.dataProvider = new XMLListCollection(xmlList);
+			}
+			
+			private function labelFunction(item:Object){
+				return item.suggestion.@data;
+			}
+			
+			private function search(){
+				var s = autoC.text
+				googleSearch.url = 'http://ajax.googleapis.com/ajax/services/search/web';
+				googleSearch.request.v = '1.0';
+				googleSearch.request.q = s;
+				googleSearch.send();
+			}
+			
+			private function onSearchResult(event:ResultEvent){
+				var result:Object = JSON.decode(event.result as String).responseData.results;
+				searchResults.dataProvider = new ArrayList(result as Array);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:VGroup paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10" width="100%" >
+		
+		<s:HGroup verticalAlign="middle">
+			<components:AutoComplete id="autoC" change="onChange()" labelFunction="labelFunction"
+					select="search()" enter="search()" width="200" />
+			<mx:Image source="@Embed(source='../assets/small-logo.png')" />
+		</s:HGroup>
+		
+		<s:DataGroup id="searchResults" width="100%" height="100%" 
+				itemRenderer="org.flashcommander.renderer.SearchItem">
+			<s:layout><s:VerticalLayout /></s:layout>
+		</s:DataGroup>
+		
+		
+		
+	</s:VGroup>
+</s:Application>

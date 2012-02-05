@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   xmlns:flashcommander="org.flashcommander.*"
+			   xmlns:components="org.flashcommander.components.*"
+			   backgroundColor="0xefefef" 
+			   viewSourceURL="/SparkAutoComplete/bin-release/srcview/index.html" >
+	
+	<fx:Script>
+		<![CDATA[
+			import org.flashcommander.event.CustomEvent;
+			
+			private function xmlLoaded(event){
+				ac2.dataProvider = loader.lastResult.root.row as ArrayCollection;
+			}
+			
+			// autocopmlete dispatches "select" event when user selects an item in the dropdown 
+			private function handleSelect(event:CustomEvent){
+				var item = event.data;
+				if (selectedNamesAc.source.indexOf(item)==-1)
+					selectedNamesAc.addItem(item);	
+			}
+			
+			// display name and rank as label
+			function customLabelFunction(item:Object):String{
+				return item.firstname + " - "+item.rank;
+			}
+			
+			// sort ascending by rank
+			function customSortFunction(item1:Object, item2:Object, fields:Array=null){
+				var rank1:Number = item1.rank;
+				var rank2:Number = item2.rank;
+				return rank1-rank2;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+		<s:HTTPService id="loader" url="../data/names.xml" 
+				resultFormat="object" result="xmlLoaded(event)" />
+					   
+		<s:ArrayCollection id="selectedNamesAc" />
+		
+		
+	</fx:Declarations>
+	
+	<s:HGroup width="100%" height="100%" 
+		paddingLeft="10" paddingTop="10" paddingRight="10" paddingBottom="10" >
+		
+		<s:VGroup width="40%" height="100%">
+			
+			<s:RichText whiteSpaceCollapse="collapse" fontSize="13" width="100%" >
+				<s:span fontWeight="bold">Example 1:</s:span><s:br></s:br>
+				- dataprovider is an array of strings<s:br></s:br>
+				- requireSelection=true, first matching item is selected and filled into the textinput<s:br></s:br>
+				- forceOpen=true, dropdown opens when component receives focus
+			</s:RichText>
+			
+			<components:AutoComplete id="ac1" 
+					dataProvider="['aab', 'abb', 'baa', 'bba', 'cba', 'abc', 'ccc']" width="50%"
+					requireSelection="true" forceOpen="true" />
+			
+		</s:VGroup>
+		
+		<s:VGroup width="60%" height="100%">
+			
+			<s:RichText whiteSpaceCollapse="collapse" fontSize="13" width="100%" >
+				<s:span fontWeight="bold">Example 2: popular male firstnames</s:span><s:br></s:br>
+				- data is loaded asynchronously from xml file<s:br></s:br>
+				- dataprovider is an ArrayCollection containing an array of objects <s:br></s:br>
+				- custom labelFunction displays firstname and rank<s:br></s:br> 
+				- returnField="firstname" specifies the field to be used at completion<s:br></s:br> 
+				- custom sortFunction to sort by rank<s:br></s:br> 
+				- event handler for 'select' event is used to detect user selection
+			</s:RichText>
+		
+			<components:AutoComplete id="ac2" width="50%"
+				returnField="firstname" creationComplete="loader.send()" 
+				labelFunction="customLabelFunction"
+				sortFunction="customSortFunction"
+				select="handleSelect(event)" />
+			
+			<mx:DataGrid id="nameGrid" dataProvider="{selectedNamesAc}" width="100%" height="100%" visible="true">
+				<mx:columns>
+					<mx:DataGridColumn headerText="First name" dataField="firstname" />
+					<mx:DataGridColumn headerText="Rank" dataField="rank" textAlign="right" width="60" />
+				</mx:columns>
+			</mx:DataGrid>
+			
+		</s:VGroup>
+		
+	</s:HGroup>
+	
+</s:Application>

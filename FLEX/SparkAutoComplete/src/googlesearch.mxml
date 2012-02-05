@@ -4,7 +4,10 @@
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
 			   xmlns:components="org.flashcommander.components.*" 
 			   viewSourceURL="/SparkAutoComplete/bin-release/srcview/index.html">
-
+<!-- http://code.google.com/intl/fr-FR/apis/analytics/docs/tracking/flashTrackingIntro.html
+	http://code.google.com/p/googleas3api/
+	
+	-->
 	<fx:Declarations>
 		<s:HTTPService id="googleSuggest" result="onResult(event)"
 					   fault="onFault(event)"
